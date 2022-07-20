@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-from tkinter import CASCADE
-=======
->>>>>>> aa6b27f (First Commit)
 from django.db import models
 from django.urls import reverse
 from category.models import Category
@@ -23,7 +19,6 @@ class Products(models.Model):
         return self.product_name
 
     def get_url(self):
-<<<<<<< HEAD
         return reverse('product_detail', args=[self.category.slug, self.slug])
 
 class VariationManager(models.Manager):
@@ -51,6 +46,3 @@ class Variations(models.Model):
 
     def __str__(self):
         return self.variation_value
-=======
-        return reverse('product_detail', args=[self.category.slug, self.slug])
->>>>>>> aa6b27f (First Commit)
