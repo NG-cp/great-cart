@@ -1,8 +1,8 @@
-This app has been developed in Django.
+Fully featured e-commerce app created in Django.
 
 
 
-Features of this app:
+Features of the app:
 
 *** Make real world eCommerce applications using Python and Django Framework
 *** Django Custom User Model, Category & Media Files
