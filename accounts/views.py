@@ -11,7 +11,6 @@ from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
 import requests
 
-from accounts.forms import RegistrationForm
 from cart.models import Cart, CartItem
 from cart.views import _session_id
 from .forms import RegistrationForm
