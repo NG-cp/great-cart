@@ -86,7 +86,11 @@ AUTH_USER_MODEL = 'accounts.Account'
 
 SESSION_EXPIRE_SECONDS = 3600  # 1 hour
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+<<<<<<< HEAD
 SESSION_TIMEOUT_REDIRECT = 'accounts/login'
+=======
+SESSION_TIMEOUT_REDIRECT = 'account/login'
+>>>>>>> e107310 (Bug Fix)
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
