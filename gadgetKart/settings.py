@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 from decouple import config
 import django_heroku
@@ -91,12 +91,36 @@ SESSION_TIMEOUT_REDIRECT = 'account/login'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# os.environ['POSTGRESQL_DB_NAME'] = 'postgres'
+# os.environ['POSTGRESQL_DB_USERNAME'] = 'postgres'
+# os.environ['POSTGRESQL_DB_PASSWORD'] = ''
+# os.environ['POSTGRESQL_DB_HOSTNAME'] = 'localhost'
+# os.environ['POSTGRESQL_DB_PORT'] = '5432'
+
+is_heroku_env = os.environ.get('IS_HEROKU_ENV', None)
+if is_heroku_env:
+    DATABASES = {}
+    db_from_env = dj_database_url.config(conn_max_age=600)
+    DATABASES['default'].update(db_from_env)
+else:
+    if 'POSTGRESQL_DB_NAME' in os.environ:
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql',
+                'NAME': os.environ['POSTGRESQL_DB_NAME'],
+                'USER': os.environ['POSTGRESQL_DB_USERNAME'],
+                'PASSWORD': os.environ['POSTGRESQL_DB_PASSWORD'],
+                'HOST': os.environ['POSTGRESQL_DB_HOSTNAME'],
+                'PORT': os.environ['POSTGRESQL_DB_PORT'],
+            }
+        }
+    else:
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': BASE_DIR / 'db.sqlite3',
+            }
+        }
 
 
 # Password validation
