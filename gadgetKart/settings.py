@@ -97,30 +97,30 @@ SESSION_TIMEOUT_REDIRECT = 'account/login'
 # os.environ['POSTGRESQL_DB_HOSTNAME'] = 'localhost'
 # os.environ['POSTGRESQL_DB_PORT'] = '5432'
 
+if 'POSTGRESQL_DB_NAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ['POSTGRESQL_DB_NAME'],
+            'USER': os.environ['POSTGRESQL_DB_USERNAME'],
+            'PASSWORD': os.environ['POSTGRESQL_DB_PASSWORD'],
+            'HOST': os.environ['POSTGRESQL_DB_HOSTNAME'],
+            'PORT': os.environ['POSTGRESQL_DB_PORT'],
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
 is_heroku_env = os.environ.get('IS_HEROKU_ENV', None)
 if is_heroku_env:
     DATABASES = {}
     db_from_env = dj_database_url.config(conn_max_age=600)
     DATABASES['default'].update(db_from_env)
-else:
-    if 'POSTGRESQL_DB_NAME' in os.environ:
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.postgresql',
-                'NAME': os.environ['POSTGRESQL_DB_NAME'],
-                'USER': os.environ['POSTGRESQL_DB_USERNAME'],
-                'PASSWORD': os.environ['POSTGRESQL_DB_PASSWORD'],
-                'HOST': os.environ['POSTGRESQL_DB_HOSTNAME'],
-                'PORT': os.environ['POSTGRESQL_DB_PORT'],
-            }
-        }
-    else:
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': BASE_DIR / 'db.sqlite3',
-            }
-        }
 
 
 # Password validation
