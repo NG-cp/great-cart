@@ -118,7 +118,6 @@ else:
 
 is_heroku_env = os.environ.get('IS_HEROKU_ENV', None)
 if is_heroku_env:
-    DATABASES = {}
     db_from_env = dj_database_url.config(conn_max_age=600)
     DATABASES['default'].update(db_from_env)
 
